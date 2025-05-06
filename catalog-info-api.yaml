@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ${{ values.destination.repo }}-api
+  description: API para el servicio ${{ values.destination.repo }}
+spec:
+  type: openapi
+  lifecycle: production
+  owner: ${{ values.owner }}
+  definition: 
+    $text: https://dev.azure.com/${{values.destination.owner + "/_git/" + values.destination.repo}}?path=/resources/openapi.json

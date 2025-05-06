@@ -1,0 +1,27 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{values.destination.repo}}
+  description: ${{ values.description }}
+  tags:
+    - nodejs
+    - nestjs
+    - postgres
+    - rest
+  links:
+    - url: https://dev.azure.com/${{values.destination.owner + "/_git/" + values.destination.repo}}
+      title: Repository
+      icon: azure
+  annotations:
+    backstage.io/kubernetes-id: ${{values.destination.repo}}
+    argocd/app-name: ${{values.destination.repo}}
+    tekton.dev/cicd : "true"
+    backstage.io/techdocs-ref: dir:.
+    newrelic.com/dashboard-guid: ${{values.newRelicDashboardGui}}
+spec:
+  type: service
+  owner: ${{ values.owner }}
+  system: ${{ values.system }}
+  lifecycle: production
+  providesApis:
+    - ${{ values.destination.repo }}-api
